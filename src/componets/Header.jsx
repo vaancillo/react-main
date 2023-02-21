@@ -13,8 +13,7 @@ const Header = () => {
   return (
     <header  className="header">
       <h1>Tareas</h1>
-      <Button texto="Agregar" color="green" onClick={agregar} />
-      <Button texto="Borrar" color="red" onClick={borrar} /> 
+      <Button texto="Agregar" color="green" onClick={agregar} /> 
     </header>
   )
 }

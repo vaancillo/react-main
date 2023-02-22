@@ -1,13 +1,35 @@
 import { useState } from "react"
 
-const AddTarea = () => {
+const AddTarea = ({onAdd}) => {
 
     const [texto, setTexto] = useState("")
     const [fecha, setFecha] = useState("")
     const [terminada, setTerminada] = useState(false)
 
+    const onSubmit = (e) => {
+        e.preventDefault()
+
+        if (!texto){
+            alert("Por favor teclea una descripción para esta tarea")
+            return
+        }
+        if (!fecha){
+            alert("Por favor teclea una fecha para esta tarea")
+            return
+        }
+        
+        onAdd({texto, fecha, terminada})
+
+        setTexto("")
+        setFecha("")
+        setTerminada(false)
+
+
+    }
+    
+
   return (  
-    <form className="add-form">
+    <form className="add-form" onSubmit={onSubmit}>
         <div className="form-control">
         <label>Tarea:</label>
         <input 
@@ -19,7 +41,7 @@ const AddTarea = () => {
         <div className="form-control">
     <label>Fecha:</label>
     <input 
-            type="text" 
+            type="date" 
             placeholder="Fecha"
             value={fecha} 
             onChange={(e)=>setFecha(e.target.value)}
@@ -27,9 +49,13 @@ const AddTarea = () => {
         </div>
         <div className="form-control form-control-check">
     <label>terminada</label>
-    <input type="checkbox"/>
+    <input 
+        type="checkbox"
+            checked={terminada}
+            value={terminada}
+            onChange={(e) => setTerminada(e.currentTarget.checked)}/>
         </div>
-        <input type="sumbit" value="Agregar tarea" className="btn btn-block"/>
+        <input type="submit" value="Agregar tarea" className="btn btn-block"/>
     </form>
   )
 }
